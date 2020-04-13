@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <Methods msg="Welcome to Your Vue.js App"/>
+    <Computed msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-import Methods from './components/Methods.vue'
+import Computed from './components/Computed.vue'
 
 export default {
   name: 'App',
   components: {
-    Methods
+    Computed
   }
 }
 </script>
