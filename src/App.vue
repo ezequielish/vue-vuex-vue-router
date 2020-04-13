@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <Methods msg="Welcome to Your Vue.js App"/>
+    <Forif msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-import Methods from './components/Methods.vue'
+import Forif from './components/Forif.vue'
 
 export default {
   name: 'App',
   components: {
-    Methods
+    Forif
   }
 }
 </script>
