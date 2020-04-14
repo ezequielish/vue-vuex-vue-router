@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <Computed msg="Welcome to Your Vue.js App"/>
+    <Bindclass msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-import Computed from './components/Computed.vue'
+import Bindclass from './components/Bindclass.vue'
 
 export default {
   name: 'App',
   components: {
-    Computed
+    Bindclass
   }
 }
 </script>
