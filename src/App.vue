@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <Bindclass msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="./assets/studig.png">
+    <Films msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-import Bindclass from './components/Bindclass.vue'
+import Films from './components/Films.vue'
 
 export default {
   name: 'App',
   components: {
-    Bindclass
+    Films
   }
 }
 </script>
