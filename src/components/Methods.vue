@@ -9,7 +9,10 @@ Es la forma en la que manejamos los eventos dentro de vue es decir los eventos e
 ## ¿Cuál es la directiva para manejar eventos en vue?
 
 La directiva que vamos a usar sera **v-**
-
+ej:
+v-model
+v-on:click
+c-on:keyup
 
 ## ¿En donde colocamos nuestros métodos?
 
