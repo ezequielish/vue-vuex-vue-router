@@ -3,7 +3,7 @@
 
 ## ¿Qué son los computed en Vue?
 
-A diferencia de los métodos o propiedades calculadas se actualizan automáticamente una vez cambian sus dependencias. No aceptan ningún argunmento y deben devolver un solo valor,
+A diferencia de los métodos o propiedades calculadas las propiedades computadas se actualizan automáticamente una vez cambian sus dependencias. No aceptan ningún argunmento y deben devolver un solo valor,
 también es bueno saber que se guardan en caché.
 
 Es decir supongamos que vamos a sacar el total de cuantas frutas tenemos y vamos a crear un computed para eso cada vez que cambie o se agregue o se reste un fruta la función computadase va a ejecutar.
