@@ -11,6 +11,7 @@ Lo primero que vamos hacer es crear un array dentro de data en nuestra instacia 
 v-for="itemArray in nameArray" también debemos especificar un key que debe ser un valor único lo mas recomendable es que sea el id, en este caso ya que es un ejemplo usaremos el mismo nombre del valor
 
 podemos usar v-key:"value"  o :key="value"
+podemos usar v-key:"(value, index)"  o :key="index"
 
 
 
