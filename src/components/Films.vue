@@ -6,26 +6,22 @@
 <template>
  <section>
    <h1>MOVIES</h1>
-   <Loader v-show="loading" />
+   
+   <Loader v-show="this.loading_films" />
    <div id="container-movies">
-     <div class="frame-movie" v-for="(film,index) in films" :key="index">
-       <div class="frame-movie-head">
-         <h2>{{film.title}}</h2>
-       </div>
-      <div class="frame-movie-body">
-        <p id="description">{{handleText(film.description)}}</p>
-      </div>
-      
-     <div class="frame-movie-body-footer">
-        <div class="frame-movie-body-footer-info">
-          <p>{{film.director}}</p>
-          <p>{{film.producer}}</p>
-        </div>
-        <div>
-          <p>{{film.release_date}}</p>
-        </div>
-     </div>
-
+     <div v-for="(film,index) in this.films" :key="index">
+       <MovieCard 
+       :index="index" 
+       :id="film.id"
+       :title="film.title"
+       :description="film.description"
+       :director="film.director" 
+       :producer="film.producer"
+       :date="film.release_date"
+       :handleText="handleText"
+       :handleLikeMovie="handleLikeMovie"
+       :handleImgLike="handleImgLike"
+       />
     </div>
    </div>  
  </section>
@@ -33,26 +29,28 @@
 
 <script>
 
-import { getAll } from '../api/movies';
+// import { getAll } from '../api/movies';
 import Loader from './Loader'
+import MovieCard from './MovieCard'
+import { mapState,mapActions } from 'vuex'
+
+
 
 export default {
   name: 'Films',
   components: {
-    Loader
+    Loader,
+    MovieCard
   },
   // props: {
   //   msg: String
   // }
   data: () => ({
-    films: [],
-    loading: false
   }),
   methods: ({
    messageConsole(msg){
       console.log(msg);
   },
-
   handleText(text){
       const textLength = text.length;
       if(textLength > 250){
@@ -60,51 +58,36 @@ export default {
         return newText
       }
       return text
+    },
+
+  ...mapActions(['getAllFilmsApi', 'likedMovie']),
+  gatAllFilms(){
+    if(!this.films.length){
+      this.getAllFilmsApi()
     }
+  },
+  handleLikeMovie(id){
+    this.likedMovie(`movie-${id}`)
+  },
+   handleImgLike(id){
+ 
+    if(!localStorage.getItem(`movie-${id}`) || localStorage.getItem(`movie-${id}`) === null){
+      return false
+    } else{
+      return true
+    } 
+    
+  }
 
   }),
-
-  beforeCreate(){
-    console.log('beforeCreate - Se ejecuta antes de que todo cargue');
-      
+ computed: {
+    ...mapState(['films', 'loading_films']),
   },
 
   created(){
-    this.messageConsole('created - Se ejecuta al después de crear los métodos, obervadores y eventos, pero antes de montar el DOM')
-     this.loading = true 
-       getAll().then(data => {
-       this.films = data   
-       this.loading = false            
-    })
-    .catch(err => {
-      console.log(err);
-      
-    }) 
+    this.gatAllFilms()
+    
   },
-
-  beforeMount(){
-    this.messageConsole('beforeMount - Se ejecuta antes de insertar el DOM')
-  },
-
-  mounted(){
-    this.messageConsole('mounted - Se ejecuta al insertar el DOM')    
-  },
-
-  beforeUpdate(){
-    this.messageConsole('beforeUpdate - Se ejecuta al detectar un cambio es decir antes que se haga el cambio, normalmente en la data || props')
-  },
-
-  update(){
-    this.messageConsole('update - Se ejecuta al realizar un cambio normalmente en la data || props')
-  },
-
-  beforeDestroy(){
-    this.messageConsole('beforeDestroy - Se ejecuta antes de desmotar el componente o destruir la instancia')
-  },
-
-  destroyed(){
-    this.messageConsole('destroyed - Se ejecuta al destruir la instancia')
-  }
 }
 </script>
 
@@ -118,23 +101,7 @@ export default {
   padding: 25px;
 
 }
-.frame-movie{
-    width: 260px;
-    border: solid;
-    min-width: 260px;
-    height: 365px;
-    display: grid;
-    grid-template-rows: 20% 50% 30%;
-    cursor: pointer;
-  }
- #description{
-    text-align: justify;
-    margin: 10px;
-  } 
-  .frame-movie-body-footer-info{
-    display: flex;
-    justify-content: space-evenly;
-  }
+
 h3 {
   margin: 40px 0 0;
 }
