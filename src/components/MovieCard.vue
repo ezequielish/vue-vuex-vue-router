@@ -15,11 +15,11 @@
         </div>
         <div class="frame-movie-body-footer-date">
         <p>{{date}}</p>
-        <div v-if="handleImgLike(id)">
-            <img @click="likeMovie(id)" alt="like" src="../assets/favorite-24px.svg">
+        <div v-if="idLike">
+            <img @click="likeMovie" alt="like" src="../assets/favorite-24px.svg">
         </div>
         <div v-else>
-            <img @click="likeMovie(id)" alt="like" src="../assets/favorite_border-24px.svg">
+            <img @click="likeMovie" alt="like" src="../assets/favorite_border-24px.svg">
         </div>
         </div>
      </div>
@@ -29,10 +29,6 @@
 </template>
 
 <script>
-
-
-// import likeMovieSvg from '../assets/favorite-24px.svg'
-// import NolikeMovieSvg from '../assets/favorite_border-24px.svg'
 
 export default {
   name: 'MovieCard',
@@ -51,16 +47,20 @@ export default {
     handleLikeMovie: Function,
     handleImgLike: Function
   },
+
   methods: {
-      likeMovie(id){
-          this.handleLikeMovie(id)
-          this.idLike = true
+      likeMovie(){
+          this.handleLikeMovie(this.id)
+          this.idLike = !this.idLike
       }
   },
+
   mounted(){
-      this.idLike = localStorage.getItem(`movie-${this.id}`)
-    //   console.log(this.handleText);
-      
+    if(!localStorage.getItem(`movie-${this.id}`) || localStorage.getItem(`movie-${this.id}`) === null){
+      this.idLike = false
+    } else{
+      this.idLike = true
+    }    
   } 
 
 }

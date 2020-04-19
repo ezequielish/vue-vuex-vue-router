@@ -20,7 +20,6 @@
        :date="film.release_date"
        :handleText="handleText"
        :handleLikeMovie="handleLikeMovie"
-       :handleImgLike="handleImgLike"
        />
     </div>
    </div>  
@@ -69,15 +68,7 @@ export default {
   handleLikeMovie(id){
     this.likedMovie(`movie-${id}`)
   },
-   handleImgLike(id){
- 
-    if(!localStorage.getItem(`movie-${id}`) || localStorage.getItem(`movie-${id}`) === null){
-      return false
-    } else{
-      return true
-    } 
-    
-  }
+   
 
   }),
  computed: {
