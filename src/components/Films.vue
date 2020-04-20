@@ -1,5 +1,28 @@
 <!--
-# Ciclos de vida
+- ¿Para que sirve - mapSate en vuex?
+  mapState nos permite traer un estado especifico que necesitemos ejemplo si tenemos la data de las movies en un array y queremos traenos ese array usamos
+  import { mapState } from 'vuex'
+  ...mapState(['films'])
+
+  Normalmente llamamos a mapState en la propiedad - computed
+  
+  Esto seria equivalente en redux a mapStateToProps
+
+
+- ¿Para que sirve - mapActions en vuex?
+
+  mapActions nos permite traer las funciones de actions es decir las acciones paa poderlas ejecutar desde nuestro componente, ej si tenemos el actions que hace el llamado al api
+  y nos trae todas las movies gracias mapActions la podemos usar de forma sencilla es equivalente en redux a mapDispatchToProps
+
+  Normalmente colocamos mapActions en nuestra propiedad computed ej:
+
+  import { mapActions } from 'vuex'
+  ...mapActions(['getAllFilmsApi']),
+
+
+  - ¿Para que sirve - mapMutations en vuex?
+
+  mapMutations nos permite llamar a una función que muta nuestro estado esto en el caso que no necesitemos llamar al actions si no directamente a una mutación
 -->
 
 
@@ -28,10 +51,9 @@
 
 <script>
 
-// import { getAll } from '../api/movies';
 import Loader from './Loader'
 import MovieCard from './MovieCard'
-import { mapState,mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 
 
