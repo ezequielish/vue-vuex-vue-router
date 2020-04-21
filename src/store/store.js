@@ -26,7 +26,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { GET_ALL_FILMS, FILMS_LOADING, LIKE_MOVIE } from './types/fimlsTypes'
-import { getAll } from '../api/movies'
+const URL_ALL_MOVIES = "https://ghibliapi.herokuapp.com/films/";
+
 Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
@@ -52,20 +53,31 @@ const store = new Vuex.Store({
       }
     },
     actions: {
-        getAllFilmsApi({ commit }){
+        async getAllFilmsApi({ commit }){
             commit(FILMS_LOADING, true)
-            getAll()
-            .then(data => {
-                commit(GET_ALL_FILMS, data)
-                commit(FILMS_LOADING, false)
-            })
-            .catch(e => {
-                console.log(e);
-                commit(FILMS_LOADING, false)
-            })
+            try {
+              const result = await fetch(URL_ALL_MOVIES);
+          
+              const data = await result.json()             
+              commit(GET_ALL_FILMS, data)
+              commit(FILMS_LOADING, false)
+            
+            } catch (error) {
+              console.log(error);
+              commit(FILMS_LOADING, false)
+            }
         },
         likedMovie({commit}, id){
           commit(LIKE_MOVIE, id)     
+        },
+        moviesILike(){
+          let filmFavs = []          
+          this.state.films.map(film => {            
+            if(localStorage.getItem(`movie-${film.id}`) == 'true'){
+              filmFavs.push(film)                       
+            }
+          })        
+          return filmFavs
         }
     },
 

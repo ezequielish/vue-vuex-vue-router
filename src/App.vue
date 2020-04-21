@@ -1,18 +1,19 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/studig.png">
-    <Films msg="Welcome to Your Vue.js App"/>
+    <nav>
+      <router-link to='/'>Home</router-link>
+      <router-link to='/favorites'>Favorites</router-link>
+    </nav>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Films from './components/Films.vue'
+// import Films from './components/Films.vue'
 
 export default {
   name: 'App',
-  components: {
-    Films
-  }
 }
 </script>
 
@@ -24,5 +25,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+a{
+  color: blue
+}
+a.router-link-exact-active{
+  color: red;
+  padding: 8px;
 }
 </style>

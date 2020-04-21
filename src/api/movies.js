@@ -4,7 +4,7 @@ export const getAll = async () => {
   try {
     const result = await fetch(URL_ALL_MOVIES);
 
-    const data = result.json()
+    const data = await result.json()
     return data;
   } catch (error) {
     console.log(error);

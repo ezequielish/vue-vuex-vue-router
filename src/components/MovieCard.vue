@@ -56,7 +56,7 @@ export default {
   },
 
   mounted(){
-    if(!localStorage.getItem(`movie-${this.id}`) || localStorage.getItem(`movie-${this.id}`) === null){
+    if(localStorage.getItem(`movie-${this.id}`) == 'false' || localStorage.getItem(`movie-${this.id}`) == null){
       this.idLike = false
     } else{
       this.idLike = true
