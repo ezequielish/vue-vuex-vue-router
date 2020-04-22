@@ -21,6 +21,14 @@
  * 
  *    commit(TYPE, data)
  *    podemos pasar data o no
+ * 
+ * - ¿Para que nos sirve el método  - getters?
+ *  Digamos que es algo como una propiedad computada pero dentro de nuestro store la cual podemos accedeer desde cualquier parte de nuestra app, ej digamos que tenemos todas
+ * las movies cargadas pero esta vez queremos buscar una en especifico podemos usar un getters
+ * 
+ * - dipatch
+ * 
+ * Con dispatch podemos invocar una función de acción ya sea desde el mismo store o desde algun componente
  */
 
 import Vue from 'vue'

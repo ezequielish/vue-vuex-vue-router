@@ -22,7 +22,13 @@
 
   - ¿Para que sirve - mapMutations en vuex?
 
-  mapMutations nos permite llamar a una función que muta nuestro estado esto en el caso que no necesitemos llamar al actions si no directamente a una mutación
+  mapMutations nos permite llamar a una función que muta nuestro estado esto en el caso que no necesitemos llamar al actions si no directamente a una mutación.
+
+  NOTA: Algo importante en tener en es que podemos usar todas estas herramientas que nos da vuex según nuestras necesidades es decir si tenemos solo una accción por ejecutar
+  en nuestro componente quizás no sean necesario hacer un mapActions si que con un dispatch lo podriamos solucionar:
+  -> this.$store.dispatch('action', data)
+  
+  O si solo quisieramos un mutación podriamos solo utilizar commit() todo va a depender de nuestra necesidad a la hora de usarla
 -->
 
 
