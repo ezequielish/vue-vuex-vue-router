@@ -1,4 +1,4 @@
-<template>
+ <template>
     <section>
         <h1>Movie</h1>
         <Loader v-show="this.loading_films" />
@@ -11,6 +11,11 @@
                 <p>
                     {{$store.state.movieSelected.description}}
                 </p>
+                <p style="display: flex; align-items: center">
+                    {{storeMovieTen($store.state.movieSelected.rt_score ? $store.state.movieSelected.rt_score: 0)}}
+                    <span>/10</span>
+                     <img src="../assets/star-24px.svg" />
+                </p>
             </div>
             <div>
                 <p> <strong>Director:</strong> </p>
@@ -19,6 +24,7 @@
                 <p>{{$store.state.movieSelected.producer}}</p>
                 <p> <strong>Year:</strong> </p>
                 <p>{{$store.state.movieSelected.release_date}}</p>
+               
             </div>
         </div>
         <div id="error" v-else>
@@ -36,11 +42,17 @@ export default {
     components: {
         Loader,
     },
+    methods: {
+    storeMovieTen(value){
+        return Number(value) / 10
+    }
+    },
     created(){
     if(!this.films.length){
        this.$store.dispatch('getAllFilmsApi')
        .then(() =>{           
          this.$store.getters.getMovieState(this.$route.params.id)     
+         
         })
     } else{
        this.$store.getters.getMovieState(this.$route.params.id)     
@@ -48,6 +60,7 @@ export default {
     },
     computed: {
     ...mapState(['films', 'loading_films', 'error']),
+  
     },
     destroyed(){
     this.$store.commit(FILMS_ERROR, '')
@@ -67,13 +80,16 @@ export default {
         grid-template-columns: 70% 30%;
         width: 80%;
     }
-    #card:first-child{
+    #card div:first-child{
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         padding: 15px;
     }
-    #card:last-child{
+    #card div:first-child p{
+        text-align: left;
+    }
+    #card div:last-child{
         display: flex;
         flex-direction: column;
         align-items: flex-start;
