@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <Computed msg="Welcome to Your Vue.js App"/>
+    <Watch msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-import Computed from './components/Computed.vue'
+import Watch from './components/Watch.vue'
 
 export default {
   name: 'App',
   components: {
-    Computed
+    Watch
   }
 }
 </script>

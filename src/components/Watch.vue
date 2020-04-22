@@ -1,13 +1,9 @@
 <!--
-# Computed
+# Watch
 
-## ¿Qué son los computed en Vue?
+## ¿Qué son los Watch en Vue?
 
-A diferencia de los métodos o propiedades calculadas las propiedades computadas se actualizan automáticamente una vez cambian sus dependencias. No aceptan ningún argunmento y deben devolver un solo valor,
-también es bueno saber que se guardan en caché.
-
-Es decir supongamos que vamos a sacar el total de cuantas frutas tenemos y vamos a crear un computed para eso cada vez que cambie o se agregue o se reste un fruta la función computadase va a ejecutar.
-
+Los watch son propiedades que nos permites escuchar un dato y ejecutar una función cada vez que este cambie
 
 -->
 
@@ -32,7 +28,7 @@ Es decir supongamos que vamos a sacar el total de cuantas frutas tenemos y vamos
 
 <script>
 export default {
-  name: 'Computed',
+  name: 'Watch',
   // props: {
   //   msg: String
   // }
@@ -54,7 +50,13 @@ export default {
     totalFrutas(){
        return this.total + (this.frutas.length - 1)
     }
-  })
+  }),
+  watch: {
+    "frutas": () => {
+      console.log('has agregado una fruta')
+    }
+  }
+
 }
 </script>
 
