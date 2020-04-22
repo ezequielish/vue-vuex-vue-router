@@ -2,7 +2,7 @@
     <section>
          <h1>FAVORITES</h1>
         <Loader v-show="this.loading_films" />
-        <div id="container-movies">
+        <div id="container-movies" v-if="!error">
             <div v-for="(film,index) in this.favs" :key="index">
                 <MovieCard 
                 :index="index" 
@@ -17,11 +17,15 @@
                 />
             </div>
         </div>  
+        <div id="error" v-else>
+            <h4>{{error}}</h4>
+        </div> 
     </section>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import { FILMS_ERROR } from '../store/types/fimlsTypes'
 import Loader from './Loader'
 import MovieCard from './MovieCard'
 export default {
@@ -34,7 +38,7 @@ export default {
       favs: []
   }),
   computed: {
-    ...mapState(['films', 'loading_films']),
+    ...mapState(['films', 'loading_films', 'error']),
   },
   methods: {
     ...mapActions(['moviesILike','getAllFilmsApi', 'likedMovie']),
@@ -67,6 +71,9 @@ export default {
     }
    
   },
+  destroyed(){
+    this.$store.commit(FILMS_ERROR, '')
+  }
 
 }
 </script>

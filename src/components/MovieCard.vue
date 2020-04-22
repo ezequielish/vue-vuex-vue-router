@@ -1,28 +1,31 @@
 
 <template>
+
     <div class="frame-movie" >
-       <div class="frame-movie-head">
-         <h2>{{title}}</h2>
-       </div>
-      <div class="frame-movie-body">
-        <p id="description">{{handleText(description)}}</p>
-      </div>
-      
-     <div class="frame-movie-body-footer">
-        <div class="frame-movie-body-footer-info">
-          <p>{{director}}</p>
-          <p>{{producer}}</p>
+       <router-link :to="`movie/${id}`">
+          <div class="frame-movie-head">
+            <h2>{{title}}</h2>
+          </div>
+          <div class="frame-movie-body">
+            <p id="description">{{handleText(description)}}</p>
+          </div>
+          
+        <div class="frame-movie-body-footer">
+            <div class="frame-movie-body-footer-info">
+              <p>{{director}}</p>
+              <p>{{producer}}</p>
+            </div>
+            <div class="frame-movie-body-footer-date">
+            <p>{{date}}</p>
+            <div v-if="idLike">
+                <img @click="likeMovie" alt="like" src="../assets/favorite-24px.svg">
+            </div>
+            <div v-else>
+                <img @click="likeMovie" alt="like" src="../assets/favorite_border-24px.svg">
+            </div>
+            </div>
         </div>
-        <div class="frame-movie-body-footer-date">
-        <p>{{date}}</p>
-        <div v-if="idLike">
-            <img @click="likeMovie" alt="like" src="../assets/favorite-24px.svg">
-        </div>
-        <div v-else>
-            <img @click="likeMovie" alt="like" src="../assets/favorite_border-24px.svg">
-        </div>
-        </div>
-     </div>
+      </router-link>
     </div> 
 
  
@@ -68,7 +71,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.frame-movie{
+.frame-movie a{
+    text-decoration: none;
+    color: #2d3e4f;
     width: 260px;
     min-width: 260px;
     box-shadow: 0px 5px 9px rgba(0,0,0,.6);
@@ -79,7 +84,7 @@ export default {
     transition: .4s;
     background-color: white;
   }
-.frame-movie:hover{
+.frame-movie a:hover{
   transform: scale(1.1);
 }  
  #description{

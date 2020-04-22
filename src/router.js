@@ -12,6 +12,9 @@
  * 
  * Si como en el ejemplo anterior nuestro parámetro es id podemos llamar el valor de ese params de la siguiente forma: 
  * -$router.params.id
+ * 
+ * 
+ * <router-link to="{name: 'namePath', params: {id: value} }"></router-link>
  */
 
 import Vue from 'vue'
@@ -32,6 +35,11 @@ export default new Router({
             path: '/favorites',
             name: 'favorites',
             component: () => import('./components/Favorites.vue')
+        },
+        {
+            path: '/movie/:id',
+            name: 'movie',
+            component: () => import('./components/Movie.vue')
         }
     ]
 

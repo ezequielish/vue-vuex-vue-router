@@ -25,14 +25,16 @@
 
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { GET_ALL_FILMS, FILMS_LOADING, LIKE_MOVIE } from './types/fimlsTypes'
+import { GET_ALL_FILMS, FILMS_LOADING, LIKE_MOVIE, FILMS_ERROR } from './types/fimlsTypes'
 const URL_ALL_MOVIES = "https://ghibliapi.herokuapp.com/films/";
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
-      films: [],
+      films: [],      
+      movieSelected: {},
       loading_films: false,
+      error: ''
     },
     mutations: {
         GET_ALL_FILMS (state, payload) {
@@ -50,7 +52,15 @@ const store = new Vuex.Store({
           
         }
 
-      }
+      },
+      FILMS_ERROR(state, payload){
+          state.error = payload
+      },
+    },
+    getters: {
+        getMovieState: state => id => {
+          state.movieSelected = state.films.filter(film => film.id == id )[0]
+        }
     },
     actions: {
         async getAllFilmsApi({ commit }){
@@ -63,7 +73,8 @@ const store = new Vuex.Store({
               commit(FILMS_LOADING, false)
             
             } catch (error) {
-              console.log(error);
+              // console.log(error);
+              commit(FILMS_ERROR, 'Algo ha salido mal, intente mas tarde')
               commit(FILMS_LOADING, false)
             }
         },

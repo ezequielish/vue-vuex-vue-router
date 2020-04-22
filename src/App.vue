@@ -27,11 +27,15 @@ export default {
   margin-top: 60px;
 }
 
-a{
-  color: blue
-}
-a.router-link-exact-active{
-  color: red;
+nav a{
+  color: blue;
   padding: 8px;
+}
+nav a.router-link-exact-active{
+  color: red;
+ 
+}
+#error{
+        text-align: center;
 }
 </style>

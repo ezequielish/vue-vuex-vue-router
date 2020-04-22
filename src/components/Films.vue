@@ -7,8 +7,8 @@
  <section>
    <h1>MOVIES</h1>
    
-   <Loader v-show="this.loading_films" />
-   <div id="container-movies">
+   <Loader v-show="this.loading_films"  />
+   <div id="container-movies" v-if="!error">
      <div v-for="(film,index) in this.films" :key="index">
        <MovieCard 
        :index="index" 
@@ -22,7 +22,10 @@
        :handleLikeMovie="handleLikeMovie"
        />
     </div>
-   </div>  
+   </div> 
+  <div id="error" v-else>
+      <h4>{{error}}</h4>
+  </div> 
    
  </section>
 </template>
@@ -32,6 +35,7 @@
 import Loader from './Loader'
 import MovieCard from './MovieCard'
 import { mapState, mapActions } from 'vuex'
+import { FILMS_ERROR } from '../store/types/fimlsTypes'
 
 
 
@@ -67,7 +71,7 @@ export default {
 
   }),
  computed: {
-    ...mapState(['films', 'loading_films']),
+    ...mapState(['films', 'loading_films', 'error']),
   },
 
   created(){
@@ -75,7 +79,9 @@ export default {
       this.getAllFilmsApi()
     }    
   },
-
+  destroyed(){
+    this.$store.commit(FILMS_ERROR, '')
+  }
 }
 </script>
 
@@ -104,4 +110,5 @@ li {
 a {
   color: #42b983;
 }
+  
 </style>
