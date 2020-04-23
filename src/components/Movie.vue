@@ -6,24 +6,24 @@
 
             <div>
                 <h2>
-                    {{$store.state.movieSelected.title}}
+                    {{this.movieSelected.title}}
                 </h2>   
                 <p>
-                    {{$store.state.movieSelected.description}}
+                    {{this.movieSelected.description}}
                 </p>
                 <p style="display: flex; align-items: center">
-                    {{storeMovieTen($store.state.movieSelected.rt_score ? $store.state.movieSelected.rt_score: 0)}}
+                    {{storeMovieTen(this.movieSelected.rt_score ? this.movieSelected.rt_score: 0)}}
                     <span>/10</span>
                      <img src="../assets/star-24px.svg" />
                 </p>
             </div>
             <div>
                 <p> <strong>Director:</strong> </p>
-                <p>{{$store.state.movieSelected.director}}</p>
+                <p>{{this.movieSelected.director}}</p>
                 <p> <strong>Producer:</strong> </p>
-                <p>{{$store.state.movieSelected.producer}}</p>
+                <p>{{this.movieSelected.producer}}</p>
                 <p> <strong>Year:</strong> </p>
-                <p>{{$store.state.movieSelected.release_date}}</p>
+                <p>{{this.movieSelected.release_date}}</p>
                
             </div>
         </div>
@@ -49,21 +49,20 @@ export default {
     },
     created(){
     if(!this.films.length){
-       this.$store.dispatch('getAllFilmsApi')
+       this.$store.dispatch('filmsStore/getAllFilmsApi')
        .then(() =>{           
-         this.$store.getters.getMovieState(this.$route.params.id)     
-         
+         this.$store.getters['filmsStore/getMovieState'](this.$route.params.id)    
         })
     } else{
-       this.$store.getters.getMovieState(this.$route.params.id)     
+        this.$store.getters['filmsStore/getMovieState'](this.$route.params.id)  
     }   
     },
     computed: {
-    ...mapState(['films', 'loading_films', 'error']),
+    ...mapState('filmsStore',['films','movieSelected','loading_films', 'error']),
   
     },
     destroyed(){
-    this.$store.commit(FILMS_ERROR, '')
+      this.$store.commit(`filmsStore/${FILMS_ERROR}`, '')
   }
     
 }

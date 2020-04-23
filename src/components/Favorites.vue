@@ -38,10 +38,10 @@ export default {
       favs: []
   }),
   computed: {
-    ...mapState(['films', 'loading_films', 'error']),
+    ...mapState('filmsStore',['films', 'loading_films', 'error']),
   },
   methods: {
-    ...mapActions(['moviesILike','getAllFilmsApi', 'likedMovie']),
+    ...mapActions('filmsStore',['moviesILike','getAllFilmsApi', 'likedMovie']),
      handleText(text){
       const textLength = text.length;
       if(textLength > 250){
@@ -72,7 +72,7 @@ export default {
    
   },
   destroyed(){
-    this.$store.commit(FILMS_ERROR, '')
+    this.$store.commit(`filmsStore/${FILMS_ERROR}`, '')
   }
 
 }

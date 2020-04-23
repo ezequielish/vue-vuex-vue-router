@@ -23,74 +23,59 @@
  *    podemos pasar data o no
  */
 
+
+ /**
+  * - ¿Cómo llamamos a un  state desde nuestro componete ?
+  * 
+  * Normalmente lo haciamos con un ...mapState(['state'])
+  * Pero ahora debemos hacerlo de otro forma si lo vamos hacer con mapState usamos:
+  * ...mapState('nameModule',['state1', 'state2'])
+  * ...mapState('filmsStore',['films', 'error'])
+  * 
+  * En caso de que no usamos el state y sea directamente que lo llamemos usamos:
+  * 
+  * $store.nameModule.state.stateName
+  * $store.filmsStore.state.films
+  * 
+  *  - ¿Cómo llamamos a las acciones de nuestro módulo desde nuestro componete ?
+  * 
+  * Normalmente lo haciamos con un ...mapActions(['action'])
+  * 
+  * Pero ahora debemos hacerlo de otro forma si lo vamos hacer con mapActions usamos:
+  * ...mapActions('nameModule',['action1', 'action2']),
+  * ...mapActions('filmsStore',['getAllFilmsApi', 'likedMovie']),
+  * 
+  * Ahora en el caso de realizar un action sin el mapActions lo hacemos de la siguiente manera:
+  * 
+  * this.$store.dispatch(`filmsStore/nameAction`, '')
+  * 
+  * - En caso de que lo estemos haciendo desde un TYPE
+  * this.$store.dispatch(`filmsStore/${FILMS_ACTION}`, '')
+  * 
+  * ** De igual forma en caso de que sea un commit:
+  * this.$store.commit(`filmsStore/nameMutation`, '')
+  * this.$store.commit(`filmsStore/${FILMS_ERROR}`, '')
+  * 
+  * - En caso de que sea un getters el que quisieramos llamar deberiamos hacerlo de la siguiente forma:
+  * 
+  *  this.$store.getters['nameModule/getter']
+  *  this.$store.getters['filmsStore/getMovieState']
+  * 
+  *  Si el getter recibe un parámetro
+  * this.$store.getters['nameModule/getter'](value)
+  *  this.$store.getters['filmsStore/getMovieState'](this.$route.params.id)      
+  * 
+  */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { GET_ALL_FILMS, FILMS_LOADING, LIKE_MOVIE, FILMS_ERROR } from './types/fimlsTypes'
-const URL_ALL_MOVIES = "https://ghibliapi.herokuapp.com/films/";
-
+import filmsStore from './modules/filmsStore'
 Vue.use(Vuex)
 const store = new Vuex.Store({
-    state: {
-      films: [],      
-      movieSelected: {},
-      loading_films: false,
-      error: ''
+    
+    modules:{
+      filmsStore
     },
-    mutations: {
-        GET_ALL_FILMS (state, payload) {
-        state.films = payload
-      },
-      FILMS_LOADING(state, payload){
-        state.loading_films = payload
-      },
-      LIKE_MOVIE(state, payload){       
-        if(localStorage.getItem(payload) === null){
-            localStorage.setItem(payload,  true)            
-        }else{
-          const like = JSON.parse(localStorage.getItem(payload));
-          localStorage.setItem(payload, !like);
-          
-        }
-
-      },
-      FILMS_ERROR(state, payload){
-          state.error = payload
-      },
-    },
-    getters: {
-        getMovieState: state => id => {
-          state.movieSelected = state.films.filter(film => film.id == id )[0]
-        }
-    },
-    actions: {
-        async getAllFilmsApi({ commit }){
-            commit(FILMS_LOADING, true)
-            try {
-              const result = await fetch(URL_ALL_MOVIES);
-          
-              const data = await result.json()             
-              commit(GET_ALL_FILMS, data)
-              commit(FILMS_LOADING, false)
-            
-            } catch (error) {
-              // console.log(error);
-              commit(FILMS_ERROR, 'Algo ha salido mal, intente mas tarde')
-              commit(FILMS_LOADING, false)
-            }
-        },
-        likedMovie({commit}, id){
-          commit(LIKE_MOVIE, id)     
-        },
-        moviesILike(){
-          let filmFavs = []          
-          this.state.films.map(film => {            
-            if(localStorage.getItem(`movie-${film.id}`) == 'true'){
-              filmFavs.push(film)                       
-            }
-          })        
-          return filmFavs
-        }
-    },
+    
 
   })
 

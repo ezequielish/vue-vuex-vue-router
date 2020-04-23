@@ -63,7 +63,7 @@ export default {
       return text
     },
 
-  ...mapActions(['getAllFilmsApi', 'likedMovie']),
+  ...mapActions('filmsStore',['getAllFilmsApi', 'likedMovie']),
   handleLikeMovie(id){
     this.likedMovie(`movie-${id}`)
   },
@@ -71,16 +71,18 @@ export default {
 
   }),
  computed: {
-    ...mapState(['films', 'loading_films', 'error']),
+    ...mapState('filmsStore',['films', 'loading_films', 'error']),
   },
 
   created(){
+    console.log('LAI',this.films);
+    
     if(!this.films.length){
       this.getAllFilmsApi()
     }    
   },
   destroyed(){
-    this.$store.commit(FILMS_ERROR, '')
+       this.$store.commit(`filmsStore/${FILMS_ERROR}`, '')
   }
 }
 </script>
